@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>추가 페이지</title>
+      <script src="http://code.jquery.com/jquery.js"></script>
+      <script>
+      $(function(){
+         // 파라미터로 사용 될 js 객체를 생성한다.
+         $("#btnAdd").click(function() {
+            var params = {
+                fname : $("#fname").val(), //.val()을 Getter 로 이용
+                store : $("#store").val(),
+                price : $("#price").val(),
+                star : $("#star").val(),
+                date : $("#date").val(),
+                type : $("#type").val(),
+                pfile : $("#pfile").val(),
+                comment : $("#comment").val()
+            } 
+            
+            //   Ajax 실행
+            $.post("FoodLogServer.jsp", params, function(data, status) {   
+               if(status == "success") {
+                  $("#result").html(data);         
+                   $("#fname").val("").focus();//.val()을 Setter 로 이용
+                   $("#store").val("");
+                   $("#price").val("");
+                   $("#star").val("");
+                   $("#date").val("");
+                   $("#pfile").val("");
+                   $("#comment").val("");
+               }
+            });
+         });
+      });   
+      </script>
+      <style type="text/css">
+      
+      table, tr,td {
+         border : 1px solid pink;
+         margin : 0px;
+         padding :0px;
+         box-sizing : border-box;
+      }
+      
+      td {
+         
+         text-align : center;
+         margin: 0px;
+         padding:0px;
+         spacing:0px;
+      }
+      .menu {  /* 음식이름, 전체보기 테이블 */
+          width : 100px;
+          height: 25px;
+          margin: 0px;
+          padding:0px;
+          spacing:0px;
+      }
+      
+      .in1 {   /* 텍스트필드 */
+         width: 400px;
+         height: 25px;
+         margin: 0px;
+         padding: 0px;
+         spacing: 0px;
+      }
+      
+      .후기 { /* 텍스트 에어리어*/
+         width: 700px;
+         height: 200px;
+         margin: 0px;
+         padding: 0px;
+         spacing: 0px;
+         background-color: #eeb5b8;
+      }
+      
+      .btn {
+      
+      
+      }
+      .btn1 {
+      
+      }
+      
+      #star {
+      
+      }
+      
+      .option {
+         text-align-last:center;
+      }
+      </style>
+   </head>
+   <body>
+      <span>
+         <table> <!-- 음식이름, 전체보기 테이블 -->
+            <tr>   
+               <td width="300" style="text-align: center; font-size: 15px;">
+                  음식이름
+                  <input type="text" id = "fname" value="">   
+               </td>
+               <td width="600" style="text-align: right;">
+                  <button class="btn" name="show_list" onClick="location.href='list.html'">전체보기</button>
+               </td>
+            </tr>
+         </table>
+      </span>
+      <span> 
+         <table style="text-align: center;"> <!-- 테이블 생성 -->
+            <tr>
+               <td width="300" height="300">
+                  <img src="cat.jpg" alt="음식사진" width="300" />
+               </td>
+               <td width="600" height="300" align="center">         
+                  <table> <!-- 테이블 생성 -->
+                     <tr>
+                        <td class="menu">날짜</td>
+                        <td>
+                           <input type="text" class="in1" id = "date" value="">
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="menu">가게이름</td>       
+                        <td><input type="text" class="in1" id = "store" value="">
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="menu">종류</td>               
+                        <td> 
+                           <select class = "option" id="type" style="width:100%">
+                               <option value="한식">한식</option>
+                               <option value="중식">중식</option>
+                               <option value="일식">일식</option>
+                               <option value="양식">양식</option>
+                               <option value="분식">분식</option>
+                               <option value="음료">음료</option>
+                               <option value="디저트">디저트</option>
+                               <option value="동남아">동남아</option>
+                               <option value="기타">기타</option>
+                               <option value="홈쿠킹">홈쿠킹</option>
+                             </select> 
+                          </td>
+                     </tr>
+                     <tr>
+                        <td class="menu">가격</td>
+                        <td> <input type="text" class="in1" id = "price" value="">
+                        </td>
+                     </tr>
+                  </table> <!-- 테이블 마침 -->
+               </td>
+            </tr>
+            <tr>
+               <td colspan="2"> <!-- colspan 엑셀 가로 셀병합 개념 (세로 병합은 rowspan) -->
+                  <textarea id = "comment" rows="15" cols="95" style="width:99%"></textarea>
+               </td>
+            </tr>
+         </table> <!-- 테이블 마침 -->
+      </span>
+      <span> <!-- 별점(콤보박스), 추가버튼 -->
+         <table>
+            <tr>
+               <td width="300" style="text-align: left; font-size: 15px;" >별점<br>
+                  	<input type="radio" id="star" name="별점" value="1">
+                    <label for="1점">1점</label>
+                    <input type="radio" id="star" name="별점" value="2">
+                    <label for="2점">2점</label>
+                    <input type="radio" id="star" name="별점" value="3">
+                    <label for="3점">3점</label>
+                    <input type="radio" id="star" name="별점" value="4">
+                    <label for="4점">4점</label>
+                    <input type="radio" id="star" name="별점" value="5">
+                    <label for="5점">5점</label>      
+               </td>   
+      
+               <td width="600" style="text-align: right;">
+               <button type="button" id ="btnAdd">추가</button>
+               </td>   
+            </tr>
+         </table>
+      </span>
+   </body>
+</html>
