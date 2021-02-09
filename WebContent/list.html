@@ -25,7 +25,7 @@ var listTemp =
 			<td><%=food.store %></td>
 			<td><%=food.type %></td>
 			<td><%=food.price %></td>
-			<td><%=food.star %>점</td>
+			<td><%=food.star %></td>
 			<td><%=food.date %></td>
 		</tr>
 		<%
@@ -35,24 +35,45 @@ var listTemp =
 // 여기까지 리스트 템플릿
 
 $(function(){
-	var server_url = "FoodLogServer.jsp";
-	$.get(server_url, function(data,status){
-		if(status == "success"){
-			var js = JSON.parse(data.trim());
-			var fList = js.food_list;
-			console.log(fList);
-			
-			var compiled = _.template(listTemp);
-			$("#foodlistarea").html( compiled({food_list: fList}) );
-		} else {
-			document.write("<h1>오륜디...</h1>");
+	var fList = [];
+	
+	function getList(cmd, searchData){
+		$.get("FoodLogServer.jsp?cmd="+cmd+"&searchData="+searchData, function(data,status){
+			console.log(data); // 정보 안넘어옴.. 비어있음 ㅠ
+			console.log(status)
+			if(status == 'success'){
+				var jsObj = JSON.parse(data.trim());
+				fList = jsObj.food_list;
+				
+				var compiled = _.template(listTemp);
+				$('#foodlistarea').html( compiled({food_list: fList}) );
+			} else {
+				document.write("<h1>오륜디...</h1>");
+			}
+		});
+	} // getList 함수 끝
+	
+	getList("list",null);
+	
+
+	var funcSearch = function(){
+		var newFoodList = [];
+		var searchData = $('#searchData').val();
+		var searchType = $('#searchType').val();
+		
+		var patt = new RegExp(searchData, "gi"); // 대소문자 구분X
+		for(food of fList) {
+			if(food[searchType].match(patt)) {
+				newFoodList.push(food);
+			}
 		}
-	});
+		
+		var compiled = _.template(listTemp);
+		$('#foodlistarea').html( compiled({food_list: newFoodList}) );
+	}
+	$('#searchBtn').click(funcSearch);
 	
 });
-
-
-
 </script>
 
 <style>
@@ -75,13 +96,14 @@ header {
 	text-align: center;
 }
 
-.type {
+.searchType {
 	text-align-last:center; 
 	font-size:15px;
 }
 
 select {
 	margin:0 0 0 30px;
+	width: 150px;
 }
 
 table {
@@ -108,7 +130,7 @@ div.right{	/* 버튼 우측 정렬 */
 	text-align: right;
 }
 
-.search {	/* 텍스트 필드 넓게 */
+input.searchData {	/* 텍스트 필드 넓게 */
 	width: 400px
 }
 fotter {
@@ -136,27 +158,22 @@ fotter {
 	<tr>
 		<td class="left">
 			<div class="left">
-					<select name="language" class="type">
-						<option value="none">=====  종류  =====</option>
-						<option value="korea">한식</option>
-						<option value="chinese">중식</option>
-						<option value="japanese">일식</option>
-						<option value="western">양식</option>
-						<option value="flour">분식</option>
-						<option value="drink">음료</option>
-						<option value="desert">디저트</option>
-						<option value="asia">동남아</option>
-						<option value="homecook">홈쿡</option>
-						<option value="etc">기타</option>
+					<select id="searchType" class="searchType">
+						<option value="korea" selected>음식명</option>
+						<option value="chinese">음식점</option>
+						<option value="japanese">종류</option>
+						<option value="western">가격</option>
+						<option value="flour">별점</option>
+						<option value="drink">날짜</option>
 					</select>
 			</div>
 		</td>
 		<td class="center">	
-				<input type="text" class="search">
+				<input type="text" id="searchData" class="searchData">
 		</td>
 		<td class="rignt">
 			<div class="right">
-					<button type="button" class="btnstyle" id="search">검색</button>
+					<button type="button" class="btnstyle" id="searchBtn">검색</button>
 					<button type="button" class="btnstyle" id="list">전체보기</button>
 			</div>
 		</td>
@@ -167,25 +184,6 @@ fotter {
 		<!-- 전체 리스트 나올 공간 -->
 	</div>
 </section>
-
-<footer>
-	<table>
-		<tr>
-			<td>
-				<div class="left">
-					<button id="show" class="btnstyle">보기</button>
-				</div>
-			</td>
-			<td>
-				<div class="right">
-						<button type="button" class="btnstyle" id="add">추가</button>
-						<button type="button" class="btnstyle" id="delete">삭제</button>
-				</div>
-			</td>
-		</tr>
-	</table>
-</footer>
-
 
 </body>
 </html>

@@ -12,25 +12,26 @@
                 fname : $("#fname").val(), //.val()을 Getter 로 이용
                 store : $("#store").val(),
                 price : $("#price").val(),
-                star : $("#star").val(),
+                star : $("input[name='star']:checked").val(),
                 date : $("#date").val(),
-                type : $("#type").val(),
+                type : $("#type").val(),                
                 pfile : $("#pfile").val(),
-                comment : $("#comment").val()
+                comment : $("#comment").val()       
             } 
             
             //   Ajax 실행
             $.post("FoodLogServer.jsp", params, function(data, status) {   
                if(status == "success") {
-                  $("#result").html(data);         
+                  $("#result").html(data);
                    $("#fname").val("").focus();//.val()을 Setter 로 이용
                    $("#store").val("");
                    $("#price").val("");
-                   $("#star").val("");
+                   $("input[name='star']:checked").val("");
                    $("#date").val("");
+                   $("#type").val("");
                    $("#pfile").val("");
                    $("#comment").val("");
-               }
+               } 
             });
          });
       });   
@@ -45,12 +46,12 @@
       }
       
       td {
-         
          text-align : center;
          margin: 0px;
          padding:0px;
          spacing:0px;
       }
+      
       .menu {  /* 음식이름, 전체보기 테이블 */
           width : 100px;
           height: 25px;
@@ -74,18 +75,6 @@
          padding: 0px;
          spacing: 0px;
          background-color: #eeb5b8;
-      }
-      
-      .btn {
-      
-      
-      }
-      .btn1 {
-      
-      }
-      
-      #star {
-      
       }
       
       .option {
@@ -129,7 +118,7 @@
                      <tr>
                         <td class="menu">종류</td>               
                         <td> 
-                           <select class = "option" id="type" style="width:100%">
+                           <select class = "option" id ="type" style="width:100%">
                                <option value="한식">한식</option>
                                <option value="중식">중식</option>
                                <option value="일식">일식</option>
@@ -138,8 +127,8 @@
                                <option value="음료">음료</option>
                                <option value="디저트">디저트</option>
                                <option value="동남아">동남아</option>
-                               <option value="기타">기타</option>
                                <option value="홈쿠킹">홈쿠킹</option>
+                               <option value="기타">기타</option>
                              </select> 
                           </td>
                      </tr>
@@ -162,16 +151,16 @@
          <table>
             <tr>
                <td width="300" style="text-align: left; font-size: 15px;" >별점<br>
-                  	<input type="radio" id="star" name="별점" value="1">
-                    <label for="1점">1점</label>
-                    <input type="radio" id="star" name="별점" value="2">
-                    <label for="2점">2점</label>
-                    <input type="radio" id="star" name="별점" value="3">
-                    <label for="3점">3점</label>
-                    <input type="radio" id="star" name="별점" value="4">
-                    <label for="4점">4점</label>
-                    <input type="radio" id="star" name="별점" value="5">
-                    <label for="5점">5점</label>      
+                    <input type="radio" name="star" value="1">
+                    <label for="1">1점</label>
+                    <input type="radio" name="star" value="2">
+                    <label for="2">2점</label>
+                    <input type="radio" name="star" value="3">
+                    <label for="3">3점</label>
+                    <input type="radio" name="star" value="4">
+                    <label for="4">4점</label>
+                    <input type="radio" name="star" value="5">
+                    <label for="5">5점</label>      
                </td>   
       
                <td width="600" style="text-align: right;">
