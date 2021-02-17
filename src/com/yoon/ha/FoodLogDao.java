@@ -78,7 +78,7 @@ public class FoodLogDao {
 			while(rs.next()) {
 				FoodLogVo food = new FoodLogVo();
 				
-				food.setNo(rs.getString(1));
+				food.setNo(rs.getInt(1));
 				food.setFname(rs.getString(2));
 				food.setStore(rs.getString(3));
 				food.setPrice(rs.getString(4));
@@ -106,11 +106,11 @@ public class FoodLogDao {
 		
 		try {
 			pstmt=conn.prepareStatement(SELECT_ONE);
-			pstmt.setString(1, vo.getNo());
+			pstmt.setInt(1, vo.getNo());
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				food = new FoodLogVo();
-				food.setNo(rs.getString(1));
+				food.setNo(rs.getInt(1));
 				food.setFname(rs.getString(2));
 				food.setStore(rs.getString(3));
 				food.setPrice(rs.getString(4));
@@ -132,7 +132,7 @@ public class FoodLogDao {
 		conn = FoodLogJdbc.getConnection();
 		try {
 			pstmt = conn.prepareCall(DELETE);
-			pstmt.setString(1, vo.getNo());
+			pstmt.setInt(1, vo.getNo());
 			int cnt = pstmt.executeUpdate();
 			if(cnt > 0) {
 				System.out.println("삭제 완료!");
@@ -165,7 +165,7 @@ public class FoodLogDao {
 			pstmt.setString(6, vo.getType());
 			pstmt.setString(7, vo.getComment());
 			pstmt.setString(8, vo.getPfile());
-			pstmt.setString(9, vo.getNo());
+			pstmt.setInt(9, vo.getNo());
 			
 			int cnt  = pstmt.executeUpdate();
 			if(cnt > 0) {

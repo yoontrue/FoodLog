@@ -1,16 +1,26 @@
+<%@page import="com.yoon.ha.FoodLogVo"%>
+<%@page import="com.yoon.ha.FoodLogDao"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>보기</title>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
+function golist(){
+	location.href = "list.jsp";
+}
+</script>
 
 <style type="text/css">
-
 table, tr, td {
 	border : 1px solid red;
 	margin: 0px;
 	padding: 0px;
 	box-sizing: border-box;
+	border-spacing: 0;
 }
 
 td {
@@ -49,41 +59,41 @@ div {
 </head>
 <body>
 <div>
+<%
+int no = Integer.parseInt(request.getParameter("no"));
+FoodLogVo food = FoodLogDao.selectOne(new FoodLogVo(no));
+%>
 	<table>
 		<tr>
 			<td width="300" style="text-align: center; font-size: 20px;">
-				<b>음식이름</b> 
+				<b><%=food.getFname() %></b> 
 			</td>
 			<td width="600" style="text-align: right;">
-				<button class="btnstyle" name="show_list" onClick="location.href='list.html'">전체보기</button>
+				<button class="btnstyle" onclick="location.href='list.html'">전체보기</button>
 			</td>
 		</tr>
 	</table>	
 		
 	<table style="text-align: center;">
 		<tr>
-			<td width="300" height="300"><img src="image03.jpg" alt="음식사진" width="300"/></td>
+			<td width="300" height="300"><img src="pic/<%=food.getPfile() %>" alt="<%=food.getPfile() %>" width="250"/></td>
 			<td width="600" height="300">
 				<table>
 					<tr>
 						<td class="content1">날짜</td>
-						<td class="content2">음식정보들어올 예정...</td>
+						<td class="content2"><%=food.getDate() %></td>
 					</tr>
 					<tr>
 						<td class="content1">가게이름</td>
-						<td class="content2">음식정보들어올 예정...</td>
+						<td class="content2"><%=food.getStore() %></td>
 					</tr>
 					<tr>
 						<td class="content1">종류</td>
-						<td class="content2">음식정보들어올 예정...</td>
-					</tr>
-					<tr>
-						<td class="content1">주소</td>
-						<td class="content2">음식정보들어올 예정...</td>
+						<td class="content2"><%=food.getType() %></td>
 					</tr>
 					<tr>
 						<td class="content1">가격</td>
-						<td class="content2">음식정보들어올 예정...</td>
+						<td class="content2"><%=food.getPrice() %></td>
 					</tr>
 				</table>
 		</td>
@@ -93,6 +103,7 @@ div {
 	<table>
 		<tr>
 			<td class="contentarea">
+			<%=food.getComment() %>
 			</td>
 		</tr>
 	</table>
@@ -101,13 +112,21 @@ div {
 		<tr>
 			<td width="300" style="text-align: left;">
 				별점&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<%
+				int star = Integer.parseInt(food.getStar());
+				for(int i=0;i<star;i++){
+				%>
+				★  
+				<%
+				}
+				%>
 			</td>
 			<td width="600" style="text-align: right;">
-				<button class="btnstyle" name="modify">수정</button>
-				<button class="btnstyle" name="delete">삭제</button>
+				<button class="btnstyle" onclick="location.href='modify.jsp?no=<%=food.getNo() %>'">수정</button>
+				<button class="btnstyle" onclick="location.href='delete.jsp?no=<%=food.getNo() %>'">삭제</button>
 			</td>
 		</tr>
 	</table>	
-</div>		
+</div>	
 </body>
 </html>

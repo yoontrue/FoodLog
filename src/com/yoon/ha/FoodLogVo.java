@@ -1,7 +1,7 @@
 package com.yoon.ha;
 
 public class FoodLogVo {
-	private String no;
+	private int no;
 	private String fname;
 	private String store;
 	private String price;
@@ -13,7 +13,10 @@ public class FoodLogVo {
 	public FoodLogVo() {
 		// 기본 생성자
 	}
-	public FoodLogVo(String no, String fname, String store, String price, String star, String date, String type,
+	public FoodLogVo(int no) {
+		this(no,"","","","","","","","");
+	}
+	public FoodLogVo(int no, String fname, String store, String price, String star, String date, String type,
 			String comment, String pfile) {
 		this.no = no;
 		this.fname = fname;
@@ -25,60 +28,79 @@ public class FoodLogVo {
 		this.comment = comment;
 		this.pfile = pfile;
 	}
-	public String getNo() {
+
+	public int getNo() {
 		return no;
 	}
-	public void setNo(String no) {
+
+	public void setNo(int no) {
 		this.no = no;
 	}
+
 	public String getFname() {
 		return fname;
 	}
+
 	public void setFname(String fname) {
 		this.fname = fname;
 	}
+
 	public String getStore() {
 		return store;
 	}
+
 	public void setStore(String store) {
 		this.store = store;
 	}
+
 	public String getPrice() {
 		return price;
 	}
+
 	public void setPrice(String price) {
 		this.price = price;
 	}
+
 	public String getStar() {
 		return star;
 	}
+
 	public void setStar(String star) {
 		this.star = star;
 	}
+
 	public String getDate() {
 		return date;
 	}
+
 	public void setDate(String date) {
 		this.date = date;
 	}
+
 	public String getType() {
 		return type;
 	}
+
 	public void setType(String type) {
 		this.type = type;
 	}
+
 	public String getComment() {
 		return comment;
 	}
+
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+
 	public String getPfile() {
 		return pfile;
 	}
+
 	public void setPfile(String pfile) {
 		this.pfile = pfile;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -86,7 +108,7 @@ public class FoodLogVo {
 		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((fname == null) ? 0 : fname.hashCode());
-		result = prime * result + ((no == null) ? 0 : no.hashCode());
+		result = prime * result + no;
 		result = prime * result + ((pfile == null) ? 0 : pfile.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
 		result = prime * result + ((star == null) ? 0 : star.hashCode());
@@ -94,6 +116,7 @@ public class FoodLogVo {
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -118,10 +141,7 @@ public class FoodLogVo {
 				return false;
 		} else if (!fname.equals(other.fname))
 			return false;
-		if (no == null) {
-			if (other.no != null)
-				return false;
-		} else if (!no.equals(other.no))
+		if (no != other.no)
 			return false;
 		if (pfile == null) {
 			if (other.pfile != null)
@@ -150,6 +170,7 @@ public class FoodLogVo {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "FoodLogVo [no=" + no + ", fname=" + fname + ", store=" + store + ", price=" + price + ", star=" + star

@@ -6,72 +6,75 @@
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js"></script>
 <script>
-var listTemp = 
-	`<table>
-		<tr>
+var listTemp = `<table>
+	<tr>
 		<th>음식명</th>
 		<th>음식점</th>
 		<th>종류</th>
 		<th>가격</th>
 		<th>별점</th>
-		</tr>
-		<%
-		for(var i=0; i<food_list.length; i++) { 
-			var food = food_list[i];
-		%>
-		<tr>
-			<td><a href=""><%=food.fname %></td>
-			<td><%=food.store %></td>
-			<td><%=food.type %></td>
-			<td><%=food.price %></td>
-			<td><%=food.star %></td>
-		</tr>
-		<%
-		}
-		%>
+	</tr>
+	<%
+	for(var i=0;i<food_list.length;i++) {
+		var food = food_list[i];
+		var str = "";
+	%>
+	<tr>
+		<td><a href='show.jsp?no=<%=food.no %>'><%=food.fname %></a></td>
+		<td><%=food.store %></td>
+		<td><%=food.type %></td>
+		<td><%=food.price %></td>
+		<td>
+			<%
+			for(var s=0;s<food.star;s++){
+				str += "★";
+			}
+			%>
+			<%=str %>
+		</td>
+	</tr>
+	<%
+	} 
+	%>
 	</table>`;
-// 여기까지 리스트 템플릿
-
-$(function(){
-	var fList = [];
 	
+$(function() {
+	var foodList = [];
 	function getList(cmd, searchData){
-		$.get("FoodLogServer.jsp?cmd="+cmd+"&searchData="+searchData, function(data,status){
-			console.log(data); // 정보 안넘어옴.. 비어있음 ㅠ
-			console.log(status)
+		$.get("listServer.jsp?cmd="+cmd+"&searchData="+searchData, function(data, status){
 			if(status == 'success'){
 				var jsObj = JSON.parse(data.trim());
-				fList = jsObj.food_list;
-				
+				foodList = jsObj.food_list;
 				var compiled = _.template(listTemp);
-				$('#foodlistarea').html( compiled({food_list: fList}) );
+				$('#foodlistarea').html(compiled({food_list:foodList}));
 			} else {
-				document.write("<h1>오륜디...</h1>");
+				document.write("<h2>서버 오류!!</h2>")
 			}
 		});
-	} // getList 함수 끝
+	}
+	getList("hi", null);
 	
-	getList("list",null);
-	
-
-	var funcSearch = function(){
-		var newFoodList = [];
+	var searchAct = function(){
+		var searchFoodList = [];
 		var searchData = $('#searchData').val();
 		var searchType = $('#searchType').val();
 		
-		var patt = new RegExp(searchData, "gi"); // 대소문자 구분X
-		for(food of fList) {
-			if(food[searchType].match(patt)) {
-				newFoodList.push(food);
+		var patt = new RegExp(searchData, "gi");
+		for(foodie of foodList) {
+			if(foodie[searchType].match(patt)) {
+				searchFoodList.push(foodie);
 			}
 		}
 		
 		var compiled = _.template(listTemp);
-		$('#foodlistarea').html( compiled({food_list: newFoodList}) );
+		console.log(compiled({food_list: searchFoodList}));
+		$('#foodlistarea').html( compiled({food_list: searchFoodList}) );
 	}
-	$('#searchBtn').click(funcSearch);
+	$('#searchBtn').click(searchAct);
 	
 });
+
+
 </script>
 
 <style>
@@ -82,6 +85,7 @@ header, footer, section, table, div#foodlistarea {	/* 위치 확인 및 전체�
 		padding: 0px;
 		box-sizing: border-box;
 		width: 900px;
+		border-spacing: 0;
 }
 
 
@@ -142,6 +146,9 @@ fotter {
 	 vertical-align:center;
 	 margin:0 5px 0 0;
 }
+form {
+	margin: 50px;
+}
 </style>
 
 </head>
@@ -157,12 +164,12 @@ fotter {
 		<td class="left">
 			<div class="left">
 					<select id="searchType" class="searchType">
-						<option value="korea" selected>음식명</option>
-						<option value="chinese">음식점</option>
-						<option value="japanese">종류</option>
-						<option value="western">가격</option>
-						<option value="flour">별점</option>
-						<option value="drink">날짜</option>
+						<option value="fname" selected>음식명</option>
+						<option value="store">음식점</option>
+						<option value="type">종류</option>
+						<option value="price">가격</option>
+						<option value="star">별점</option>
+						<option value="date">날짜</option>
 					</select>
 			</div>
 		</td>
@@ -172,7 +179,7 @@ fotter {
 		<td class="rignt">
 			<div class="right">
 					<button type="button" class="btnstyle" id="searchBtn">검색</button>
-					<button type="button" class="btnstyle" id="list">전체보기</button>
+					<button type="button" class="btnstyle" id="listBtn">전체보기</button>
 			</div>
 		</td>
 	</tr>
