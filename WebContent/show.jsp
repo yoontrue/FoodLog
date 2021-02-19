@@ -10,7 +10,7 @@
 <script src="http://code.jquery.com/jquery.js"></script>
 <script>
 function golist(){
-	location.href = "list.jsp";
+	location.href = "list.html";
 }
 </script>
 
@@ -62,6 +62,7 @@ div {
 <%
 int no = Integer.parseInt(request.getParameter("no"));
 FoodLogVo food = FoodLogDao.selectOne(new FoodLogVo(no));
+String imgsrc = "pic/" + food.getPfile();
 %>
 	<table>
 		<tr>
@@ -76,7 +77,7 @@ FoodLogVo food = FoodLogDao.selectOne(new FoodLogVo(no));
 		
 	<table style="text-align: center;">
 		<tr>
-			<td width="300" height="300"><img src="pic/<%=food.getPfile() %>" alt="<%=food.getPfile() %>" width="250"/></td>
+			<td width="300" height="300"><img src="<%=imgsrc %>" alt="<%=imgsrc %>" width="250"/></td>
 			<td width="600" height="300">
 				<table>
 					<tr>
@@ -102,9 +103,7 @@ FoodLogVo food = FoodLogDao.selectOne(new FoodLogVo(no));
 
 	<table>
 		<tr>
-			<td class="contentarea">
-			<%=food.getComment() %>
-			</td>
+			<td class="contentarea"><%=food.getComment() %></td>
 		</tr>
 	</table>
 	

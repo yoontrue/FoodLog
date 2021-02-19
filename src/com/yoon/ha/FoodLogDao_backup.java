@@ -8,9 +8,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.yoon.ha.dbcp.FoodLogJdbc;
 
-public class FoodLogDao {
+public class FoodLogDao_backup {
 	private static Connection conn = null;
 	private static Statement stmt = null;
 	private static PreparedStatement pstmt = null;

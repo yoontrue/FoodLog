@@ -5,6 +5,7 @@
     pageEncoding="UTF-8"%>
 <% 
 // request에서 데이터를 가져와
+String no = request.getParameter("no");
 String fname = request.getParameter("fname");
 String store = request.getParameter("store");
 String price = request.getParameter("price");
@@ -17,9 +18,10 @@ String pfile = request.getParameter("pfile");
 // 클래스 객체를 생성할 땐 생성자를 호출하는데 new 라는 키워드로 호출한다.
 // FoodLogVo vo = new FoodLogVo(); >> 안에 아무것도 들어가지 않았으므로 기본 생성자를 호출한것
 // new FoodLogVo(fname, store, price, star, date, type, comment, pfile) >> 안에 변수들이 들어갔으므로 기본이 아닌 생성자를 호출한것 (개발자가 만든 것)
-FoodLogDao.modify(new FoodLogVo(0, fname, store, price, star, date, type, comment, pfile));
 
-// 수정한후 상세보기로 넘어간다. 수정한값만 보인다. 
+FoodLogDao.modify(new FoodLogVo(Integer.parseInt(no), fname, store, price, star, date, type, comment, pfile));
+
+// 수정한후 상세보기로 넘어간다. 수정한값이 보인다. 
 // 수정페이지에 목록, 보기, 삭제가 있다.
-response.sendRedirect("show.jsp?no="+0);
+// response.sendRedirect("show.jsp?no="+0);
 %>

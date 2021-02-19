@@ -6,5 +6,5 @@
 int no = Integer.parseInt(request.getParameter("no"));
 FoodLogDao.delete(new FoodLogVo(no));
 
-response.setHeader("Refresh", "0; URL=list.html");
+response.sendRedirect("list.html");
 %>

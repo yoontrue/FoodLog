@@ -10,6 +10,7 @@ public class FoodLogVo {
 	private String type;
 	private String comment;
 	private String pfile;
+
 	public FoodLogVo() {
 		// 기본 생성자
 	}

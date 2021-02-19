@@ -37,8 +37,6 @@ var listTemp = `<table>
 	} 
 	%>
 	</table>`;
-	
-$(function() {
 	var foodList = [];
 	function getList(cmd, searchData){
 		$.get("listServer.jsp?cmd="+cmd+"&searchData="+searchData, function(data, status){
@@ -48,11 +46,12 @@ $(function() {
 				var compiled = _.template(listTemp);
 				$('#foodlistarea').html(compiled({food_list:foodList}));
 			} else {
-				document.write("<h2>서버 오류!!</h2>")
+				document.write("<h2>서버 오류!!</h2>");
 			}
 		});
 	}
-	getList("hi", null);
+	getList("list", null);
+$(function() {
 	
 	var searchAct = function(){
 		var searchFoodList = [];
@@ -71,7 +70,7 @@ $(function() {
 		$('#foodlistarea').html( compiled({food_list: searchFoodList}) );
 	}
 	$('#searchBtn').click(searchAct);
-	
+	$('#listBtn').click(getList("list", null));
 });
 
 
@@ -79,7 +78,7 @@ $(function() {
 
 <style>
 header, footer, section, table, div#foodlistarea {	/* 위치 확인 및 전체크기 맞추기용 */
-		border: 1px solid blue;
+		border: 0px solid blue;
 		margin: 0px;
 		border-radius: 0px;
 		padding: 0px;
@@ -90,7 +89,7 @@ header, footer, section, table, div#foodlistarea {	/* 위치 확인 및 전체�
 
 
 td, th {
-	border: 1px solid blue;  /* 나중에 보더 지우기 */
+	border: 0px solid blue;  /* 나중에 보더 지우기 */
 	box-sizing: border-box;
 	width: 150px;
 }
@@ -133,7 +132,7 @@ div.right{	/* 버튼 우측 정렬 */
 }
 
 input.searchData {	/* 텍스트 필드 넓게 */
-	width: 400px
+	width: 380px
 }
 fotter {
 		clear:both;
@@ -175,11 +174,13 @@ form {
 		</td>
 		<td class="center">	
 				<input type="text" id="searchData" class="searchData">
+				<button type="button" class="btnstyle" id="searchBtn">검색</button>
 		</td>
 		<td class="rignt">
 			<div class="right">
-					<button type="button" class="btnstyle" id="searchBtn">검색</button>
+					
 					<button type="button" class="btnstyle" id="listBtn">전체보기</button>
+					<button type="button" class="btnstyle" id="addBtn" onclick="location.href='addFood.html'">추가</button>
 			</div>
 		</td>
 	</tr>
