@@ -21,14 +21,14 @@
 			
 			// form 안에 fname 유효성 체크
 			if (form.fname.value == "") {
-				alert("음식이름은 필수 입력 항목입니다!");
+				alert("음식명은 필수 입력 항목입니다!");
 				$(form.fname).focus();
 				return;
 			}
 			
 			// form 안에 store 유효성 체크
 			if (form.store.value == "") {
-				alert("가게이름은 필수 입력 항목입니다!");
+				alert("가게명은 필수 입력 항목입니다!");
 				$(form.store).focus();
 				return;
 			}
@@ -40,12 +40,27 @@
 				return;
 			}
 			
+			// form 안에 price 유효성 체크
+			if (form.price.value == "") {
+				alert("가격은 필수 입력 항목입니다!");
+				$(form.price).focus();
+				return;
+			}
+			
 			// form 안에 star 유효성 체크
 			if (form.star.value == "") {
 				alert("별점은 필수 입력 항목입니다!");
 				$(form.star).focus();
 				return;
-			}		
+			}
+			
+			// form 안에 file 유효성 체크
+			if (form.pfile.value == "") {
+				alert("파일은 필수 입력 항목입니다!");
+				$(form.pfile).focus();
+				return;
+			}
+			
 			/**
 			 * url : 전송할 서버 주소
 			 * type : 전송방식 (get/post)
@@ -98,7 +113,7 @@ td {
 	border-spacing: 0px;
 }
 
-.menu { /* 날짜, 가게이름, 종류, 가격 */
+.menu { /* 날짜, 가게명, 종류, 가격 */
 /* 	background-color: #c7c0d8; */
 	font-weight:bold;
 	width: 100px;
@@ -119,21 +134,16 @@ td {
 	border-spacing: 0px;
 }
 
-.후기 { /* 텍스트 에어리어*/
+#comment { /* 텍스트 에어리어*/
 	width: 700px;
 	height: 200px;
 	margin: 0px;
 	padding: 0px;
 	letter-spacing: 0px;
-	
 }
 
 .option {
 	text-align-last:center; 
-}
-
-div {
-/* 	margin: 50px; */
 }
 
 .container {
@@ -177,13 +187,13 @@ div {
 						<table>
 							<!-- 상세 테이블 생성 -->
 							<tr>
-								<td class="menu">음식이름 🍭</td>
+								<td class="menu">음식명 🍭</td>
 								<td>
 									<input type="text" class="in1" id="fname" name="fname" value="" />
 								</td>
 							</tr>
 							<tr>
-								<td class="menu">가게이름 🍭</td>
+								<td class="menu">가게명 🍭</td>
 								<td><input type="text" class="in1" id="store" name="store" value=""></td>
 							</tr>
 							<tr>
@@ -208,7 +218,7 @@ div {
 									placeholder="년 월 일 을 입력하세요. 예)20210208"></td>
 							</tr>
 							<tr>
-								<td class="menu">가격</td>
+								<td class="menu">가격 🍭</td>
 								<td><input type="text" class="in1" id="price" name="price" value=""></td>
 							</tr>
 							<tr>

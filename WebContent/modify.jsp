@@ -60,8 +60,6 @@
 			  , type : "post"
 			  , data : $('#food_modify').serialize()
 			  , success : function(data) {
-					
-					// 성공 시, show.jsp 로 이동한다.
 					var no = $("#no").val();
 					alert("정상적으로 수정되었습니다." + no);
 					location.href = "show.jsp?no=" + no;
@@ -160,7 +158,7 @@ div {
 </head>
 <body> 
 	<div class="container">
-		<form id="food_modify" method="post" enctype="multipart/form-data" >
+		<form id="food_modify" method="post" enctype="multipart/form-data" name="food_pic">
 			<% //no
 			int no = Integer.parseInt(request.getParameter("no"));
 			FoodLogVo food = FoodLogDao.selectOne(new FoodLogVo(no));
@@ -174,6 +172,7 @@ div {
 			<table id="all" style="text-align: center;">		
 				<tr><!-- 파일 불러오기 -->
 					<td width="200" height="200">
+					<input type="hidden" name="pfile" value="<%=food.getPfile() %>" />
 							<img src="pic/<%=food.getPfile() %>" alt="<%=food.getPfile() %>" width="250"/>
 					</td>
 					<td width="480" height="200" align="center">

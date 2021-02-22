@@ -5,6 +5,10 @@
 <%
 int no = Integer.parseInt(request.getParameter("no"));
 FoodLogDao.delete(new FoodLogVo(no));
-
+%>
+<script>
+alert('삭제되었습니다.');
+</script>
+<%
 response.sendRedirect("list.html");
 %>

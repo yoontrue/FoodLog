@@ -1,4 +1,5 @@
 <%@page import="org.json.JSONArray"%>
+<%@page import="java.lang.Exception"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.yoon.ha.FoodLogDao"%>
