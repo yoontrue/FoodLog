@@ -61,7 +61,7 @@
 			  , data : $('#food_modify').serialize()
 			  , success : function(data) {
 					var no = $("#no").val();
-					alert("정상적으로 수정되었습니다." + no);
+					alert("정상적으로 수정되었습니다.");
 					location.href = "show.jsp?no=" + no;
 			  }
 		      , error : function(xhr, status) {
