@@ -85,7 +85,7 @@ public class FoodLogDao {
 				food.setDate(rs.getString(6));
 				food.setType(rs.getString(7));
 				food.setComment(rs.getString(8));
-				food.setPfile(rs.getString(9));
+				food.setPfile(rs.getString(9));	
 				
 				list.add(food);
 			}
